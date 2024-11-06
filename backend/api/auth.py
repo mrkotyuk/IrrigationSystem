@@ -15,6 +15,8 @@ router = APIRouter(prefix="/api/v1/auth", tags=["Users"])
 async def signup(
     response: Response, user_req: UserRegisterForm, db: Session = Depends(get_db)
 ) -> UserResponse:
+    if db.query(User).filter(User.email == user_req.email).first():
+        raise HTTPException(status_code=400, detail="User already exist")
     # hashind password
     salt = bcrypt.gensalt(10)
     hash_password = bcrypt.hashpw(user_req.password.encode(), salt)

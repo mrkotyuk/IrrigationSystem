@@ -12,6 +12,7 @@ class Agent(Base):
     description = Column(String)
     unigue_identificator = Column(String, unique=True)
     created_at = Column(DATETIME, default=datetime.now(timezone.utc))
-    is_online = Column(Boolean)
+    is_online = Column(Boolean, default=False)
     author_id = Column(Integer, ForeignKey("user.id"))
     author = relationship("User")
+    scheduled_irrigations = relationship("Watering", back_populates="host_agent")

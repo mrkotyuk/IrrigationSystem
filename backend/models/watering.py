@@ -9,4 +9,4 @@ class Watering(Base):
     appointment_time = Column(String)
     intensity = Column(Integer)
     host_agent_id = Column(Integer, ForeignKey("agent.id"))
-    host_agent = relationship("Agent")
+    host_agent = relationship("Agent", back_populates="scheduled_irrigations")

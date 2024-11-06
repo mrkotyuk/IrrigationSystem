@@ -1,6 +1,8 @@
+from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
-from watering import WateringResponse
+from .watering import WateringResponse
+from .user import UserResponse
 
 
 class AgentCreateForm(BaseModel):
@@ -13,6 +15,7 @@ class AgentCreateForm(BaseModel):
 
 class AgentShortResponse(BaseModel):
     id: int
+    title: str
     location: str
     description: str
     created_at: datetime
@@ -21,8 +24,13 @@ class AgentShortResponse(BaseModel):
 
 class AgentResponse(BaseModel):
     id: int
+    title: str
     location: str
     description: str
     created_at: datetime
     author_id: int
-    scheduled_irrigations: list[WateringResponse]
+    author: UserResponse
+    scheduled_irrigations: list[WateringResponse] = None
+
+    class Config:
+        from_attributes = True

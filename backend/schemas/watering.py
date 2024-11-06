@@ -10,4 +10,7 @@ class WateringResponse(BaseModel):
     id: int
     appointment_time: str
     intensity: int
-    host_agent: int
+    host_agent_id: int
+
+    class Config:
+        from_attributes = True
