@@ -8,7 +8,7 @@ from utils.security import genToken, checkToken
 from schemas.user import UserRegisterForm, UserLoginForm, UserResponse
 
 
-router = APIRouter(prefix="/auth", tags=["Users"])
+router = APIRouter(prefix="/api/v1/auth", tags=["Users"])
 
 
 @router.post("/signup", response_model=UserResponse)

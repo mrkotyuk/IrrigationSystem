@@ -1,6 +1,5 @@
 from datetime import datetime, timezone
-from sqlalchemy import Column, Integer, String, ForeignKey, DATETIME
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, DATETIME
 from database.database import Base
 
 
