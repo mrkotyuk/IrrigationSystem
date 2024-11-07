@@ -27,7 +27,9 @@ class AgentResponse(BaseModel):
     title: str
     location: str
     description: str
+    unigue_identificator: str
     created_at: datetime
+    is_online: bool
     author_id: int
     author: UserResponse
     scheduled_irrigations: list[WateringResponse] = None
