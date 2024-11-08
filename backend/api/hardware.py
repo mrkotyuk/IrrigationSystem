@@ -1,7 +1,8 @@
 import asyncio
 from typing import Dict
+from datetime import datetime
 
-from fastapi import WebSocket, WebSocketDisconnect, APIRouter, Depends
+from fastapi import WebSocket, WebSocketDisconnect, APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database.database import get_db
 from models.agent import Agent
@@ -46,11 +47,32 @@ async def send_scheduled_message(
     watering_id: int,
 ):
     await asyncio.sleep(delay)
-    await manager.send_message(unique_identifier, message)
     db = next(get_db())
     watering = db.query(Watering).filter(Watering.id == watering_id).first()
+    if not watering:
+        return
+    await manager.send_message(unique_identifier, message)
     db.delete(watering)
     db.commit()
+
+
+def schedule_watering(
+    unique_identifier: str, message: str, appointment_time: str, watering_id: int
+):
+    try:
+        send_time_dt = datetime.strptime(appointment_time, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        raise HTTPException(
+            status_code=400, detail="Invalid datetime format. Use 'YYYY-MM-DD HH:MM:SS'"
+        )
+
+    delay = (send_time_dt - datetime.now()).total_seconds()
+    if delay < 0:
+        raise HTTPException(status_code=400, detail="Send time must be in the future")
+
+    asyncio.create_task(
+        send_scheduled_message(unique_identifier, str(message), delay, watering_id)
+    )
 
 
 @router.websocket("/ws/{unique_identifier}")
