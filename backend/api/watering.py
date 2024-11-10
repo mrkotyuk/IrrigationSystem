@@ -37,7 +37,6 @@ async def create_watering(
         watering_req.appointment_time,
         new_watering.id,
     )
-
     return new_watering
 
 

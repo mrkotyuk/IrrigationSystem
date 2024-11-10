@@ -51,9 +51,9 @@ async def send_scheduled_message(
     watering = db.query(Watering).filter(Watering.id == watering_id).first()
     if not watering:
         return
-    await manager.send_message(unique_identifier, message)
     db.delete(watering)
     db.commit()
+    await manager.send_message(unique_identifier, message)
 
 
 def schedule_watering(
@@ -69,7 +69,6 @@ def schedule_watering(
     delay = (send_time_dt - datetime.now()).total_seconds()
     if delay < 0:
         raise HTTPException(status_code=400, detail="Send time must be in the future")
-
     asyncio.create_task(
         send_scheduled_message(unique_identifier, str(message), delay, watering_id)
     )
