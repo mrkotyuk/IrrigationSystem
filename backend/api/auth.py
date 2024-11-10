@@ -19,7 +19,7 @@ async def signup(
         raise HTTPException(status_code=400, detail="User already exist")
     # hashind password
     salt = bcrypt.gensalt(10)
-    hash_password = bcrypt.hashpw(user_req.password.encode(), salt)
+    hash_password = bcrypt.hashpw(user_req.password.encode(), salt).decode()
 
     new_user = User(
         username=user_req.username,
@@ -40,7 +40,9 @@ async def login(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    is_password = bcrypt.checkpw(user_req.password.encode(), user.hashed_password)
+    is_password = bcrypt.checkpw(
+        user_req.password.encode(), user.hashed_password.encode()
+    )
 
     if not is_password:
         raise HTTPException(status_code=400, detail="Invalid username or password")
