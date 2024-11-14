@@ -2,6 +2,8 @@
 
 ### Tech stack:
 
+#### Backend:
+
 - **FastAPI**
 - **SQLAlchemy**
 - **Alembic**
