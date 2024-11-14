@@ -7,21 +7,27 @@
 - **FastAPI**
 - **SQLAlchemy**
 - **Alembic**
+- **Docker and Docker Compose**
+
+#### Before using this project, make sure you have the following components installed
+
+- Docker
+- Docker Compose
+- GNU Make
 
 ### Conf .env file
 
 ```env
 JWT_SECRET=your_secret_key
-URL_DB=your_postgres_url
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+POSTGRES_HOST=postgres
+POSTGRES_DB=IrrigationSystemDB
 ```
 
-### For run:
+### For run
 
-```sh
-$ python -m venv venv
-$ venv\Scripts\activate
-$ pip install -r requirements.txt
-$ alembic revision --autogenerate -m "initial migration"
-$ alembic upgrade head
-$ uvicorn main:app --host 0.0.0.0 --port 8000
-```
+- `make all`: Start the project.
+- `make migrations`: Make migrations.
+- `make migrate`: Apply migrations.
+- `make app-logs`: Follow the logs in api container.
