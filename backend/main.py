@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from database.database import Base, engine
-
 from api.auth import router as AuthAPI
 from api.agent import router as AgentAPI
 from api.watering import router as WateringAPI
