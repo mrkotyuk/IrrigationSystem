@@ -4,6 +4,7 @@
 
 - **FastAPI**
 - **SQLAlchemy**
+- **Alembic**
 
 ### Conf .env file
 
@@ -18,5 +19,7 @@ URL_DB=your_postgres_url
 $ python -m venv venv
 $ venv\Scripts\activate
 $ pip install -r requirements.txt
+$ alembic revision --autogenerate -m "initial migration"
+$ alembic upgrade head
 $ uvicorn main:app --reload
 ```

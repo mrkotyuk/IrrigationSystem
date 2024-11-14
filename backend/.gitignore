@@ -8,3 +8,6 @@ node_modules/
 *.iml
 *.pyc
 .env
+# exclude everything and exception to the rule
+alembic/versions/*
+!alembic/versions/.gitkeep 

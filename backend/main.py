@@ -10,7 +10,6 @@ from api.hardware import router as HardwareAPI
 
 app = FastAPI(title="Irrigation API")
 
-Base.metadata.create_all(engine)
 
 app.add_middleware(
     CORSMiddleware,
