@@ -29,6 +29,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.middleware("http")
+async def add_cors_headers(request, call_next):
+    response = await call_next(request)
+    response.headers["Access-Control-Allow-Origin"] = request.headers.get("Origin", "")
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    return response
+
+
 app.include_router(AuthAPI)
 app.include_router(AgentAPI)
 app.include_router(WateringAPI)
