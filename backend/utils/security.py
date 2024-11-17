@@ -11,7 +11,12 @@ def genToken(user_id: int, response: Response):
         SECRET_KEY,
     )
     response.set_cookie(
-        key="authorisation", value=f"Bearer {token}", max_age=86400
+        key="authorisation",
+        value=f"Bearer {token}",
+        max_age=86400,
+        samesite="none",
+        secure=True,
+        httponly=True,
     )  # 24h
 
 
