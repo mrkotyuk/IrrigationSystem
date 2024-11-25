@@ -5,7 +5,7 @@ from api.auth import router as AuthAPI
 from api.agent import router as AgentAPI
 from api.watering import router as WateringAPI
 from api.hardware import router as HardwareAPI
-from database import Base, engine
+from database.database import Base, engine
 
 Base.metadata.create_all(engine)
 
