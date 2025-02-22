@@ -1,5 +1,5 @@
 # Irrigation System
-
+Python REST API service, for an automated irrigation system. 🐍🌊🌱
 ### Tech stack:
 
 #### Backend:
